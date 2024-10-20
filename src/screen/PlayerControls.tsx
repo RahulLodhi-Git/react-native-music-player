@@ -67,7 +67,7 @@ const styleClass = StyleSheet.create({
     borderBottomLeftRadius: 70,
     borderTopRightRadius: 100,
     // borderTopLeftRadius: 70,
-    marginBottom: 50,
+    paddingBottom: 50,
     flexDirection: 'column-reverse',
   },
   controlBtnWrap: {
