@@ -1,16 +1,52 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SongSlider from '../../components/SongSlider';
+import TrackPlayer, {
+  useTrackPlayerEvents,
+  Event,
+  State as TPState,
+  usePlaybackState,
+  useProgress,
+} from 'react-native-track-player';
 
 const PlayerControls = () => {
+  const [activeTrack, setActiveTrack] = useState(undefined);
+  const trackPlaybackState = usePlaybackState(); // Hook, to give the current state of active track
+  const progress = useProgress();
+  useTrackPlayerEvents([Event.PlaybackActiveTrackChanged], async event => {
+    if (event.type === Event.PlaybackActiveTrackChanged) {
+      const nextTrack = await TrackPlayer.getTrack(event.nextTrack);
+      setActiveTrack(nextTrack);
+    }
+  });
+
+  const getActiveTrack = async () => {
+    let track = await TrackPlayer.getActiveTrack();
+    let trackIndex = await TrackPlayer.getActiveTrackIndex();
+    setActiveTrack(track);
+  };
+  useEffect(() => {
+    getActiveTrack();
+  }, []);
+
+  const togglePlayPause = async () => {
+    if (
+      TPState.Ready === trackPlaybackState.state ||
+      TPState.Paused === trackPlaybackState.state
+    ) {
+      await TrackPlayer.play();
+    } else {
+      await TrackPlayer.pause();
+    }
+  };
   return (
     <View style={styleClass.maineWrap}>
       <View style={styleClass.aboveHalf}>
         <Image
           style={styleClass.songCover}
           source={{
-            uri: 'https://c.saavncdn.com/863/Andaaz-Hindi-2020-20200827131026-500x500.jpg',
+            uri: activeTrack?.artwork,
           }}
         />
       </View>
@@ -19,18 +55,22 @@ const PlayerControls = () => {
           <Pressable>
             <Icon name="skip-previous" size={50} color="#000" />
           </Pressable>
-          <Pressable style={styleClass.btnPlay}>
-            <Icon name="play-circle" size={100} color="#7c3aed" />
+          <Pressable style={styleClass.btnPlay} onPress={togglePlayPause}>
+            {trackPlaybackState.state === 'paused' ? (
+              <Icon name="pause-circle" size={100} color="#7c3aed" />
+            ) : (
+              <Icon name="play-circle" size={100} color="#7c3aed" />
+            )}
           </Pressable>
           <Pressable>
             <Icon name="skip-next" size={50} color="#000" />
           </Pressable>
         </View>
-        <SongSlider />
+        <SongSlider progress={progress} />
         <View>
-          <Text style={styleClass.songTitle}>Full Song Title Andaaz</Text>
+          <Text style={styleClass.songTitle}>{activeTrack?.title}</Text>
           <Text style={styleClass.songInfo}>
-            Ablum Andaaz | Meil | Mahira | Parmish verma Flims
+            {activeTrack?.album} | {activeTrack?.artist} | Parmish verma Flims
           </Text>
         </View>
       </View>

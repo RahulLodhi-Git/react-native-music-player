@@ -2,21 +2,25 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Slider from '@react-native-community/slider';
 
-const SongSlider = () => {
+const SongSlider = ({progress}) => {
+  const {buffered, duration, position} = progress || {};
+  console.log();
   return (
     <View>
       <Slider
         style={{width: '100%', height: 25}}
-        minimumValue={1}
-        maximumValue={10}
+        minimumValue={0}
+        maximumValue={duration}
         minimumTrackTintColor="#8b84e4"
         maximumTrackTintColor="#000000"
-        value={2}
+        value={position}
         thumbTintColor="#7c3aed"
+        disabled={true}
       />
+
       <View style={styleClass.timerWrap}>
-        <Text>0.34</Text>
-        <Text>04.5</Text>
+        <Text>{new Date(position * 1000).toISOString().substring(15, 19)}</Text>
+        <Text>{new Date(duration * 1000).toISOString().substring(15, 19)}</Text>
       </View>
     </View>
   );
