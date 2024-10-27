@@ -4,7 +4,6 @@ import Slider from '@react-native-community/slider';
 
 const SongSlider = ({progress}) => {
   const {buffered, duration, position} = progress || {};
-  console.log();
   return (
     <View>
       <Slider

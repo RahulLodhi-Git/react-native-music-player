@@ -15,9 +15,11 @@ const PlayerControls = () => {
   const trackPlaybackState = usePlaybackState(); // Hook, to give the current state of active track
   const progress = useProgress();
   useTrackPlayerEvents([Event.PlaybackActiveTrackChanged], async event => {
-    if (event.type === Event.PlaybackActiveTrackChanged) {
-      const nextTrack = await TrackPlayer.getTrack(event.nextTrack);
-      setActiveTrack(nextTrack);
+    if (
+      event.type === Event.PlaybackActiveTrackChanged &&
+      event.track != null
+    ) {
+      setActiveTrack(event.track);
     }
   });
 
@@ -40,6 +42,13 @@ const PlayerControls = () => {
       await TrackPlayer.pause();
     }
   };
+  const handleNext = async () => {
+    await TrackPlayer.skipToNext();
+  };
+  const handlePrevious = async () => {
+    await TrackPlayer.skipToPrevious();
+  };
+  console.log('trackPlaybackState.state', trackPlaybackState.state);
   return (
     <View style={styleClass.maineWrap}>
       <View style={styleClass.aboveHalf}>
@@ -52,17 +61,17 @@ const PlayerControls = () => {
       </View>
       <View style={styleClass.belowHalf}>
         <View style={styleClass.controlBtnWrap}>
-          <Pressable>
+          <Pressable onPress={handlePrevious}>
             <Icon name="skip-previous" size={50} color="#000" />
           </Pressable>
           <Pressable style={styleClass.btnPlay} onPress={togglePlayPause}>
-            {trackPlaybackState.state === 'paused' ? (
+            {trackPlaybackState.state === 'playing' ? (
               <Icon name="pause-circle" size={100} color="#7c3aed" />
             ) : (
               <Icon name="play-circle" size={100} color="#7c3aed" />
             )}
           </Pressable>
-          <Pressable>
+          <Pressable onPress={handleNext}>
             <Icon name="skip-next" size={50} color="#000" />
           </Pressable>
         </View>
