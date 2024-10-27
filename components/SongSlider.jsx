@@ -1,9 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Slider from '@react-native-community/slider';
+import TrackPlayer from 'react-native-track-player';
 
 const SongSlider = ({progress}) => {
+  6;
   const {buffered, duration, position} = progress || {};
+  const handleSliderChangeValue = timeValue => {
+    TrackPlayer.seekTo(timeValue);
+  };
   return (
     <View>
       <Slider
@@ -14,7 +19,8 @@ const SongSlider = ({progress}) => {
         maximumTrackTintColor="#000000"
         value={position}
         thumbTintColor="#7c3aed"
-        disabled={true}
+        // disabled={true}
+        onValueChange={handleSliderChangeValue}
       />
 
       <View style={styleClass.timerWrap}>

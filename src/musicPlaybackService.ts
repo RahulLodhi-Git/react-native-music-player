@@ -25,7 +25,9 @@ export async function musicPlaybackService() {
 
   TrackPlayer.addEventListener(Event.RemotePlay, () => TrackPlayer.play());
 
-  TrackPlayer.addEventListener(Event.RemoteNext, () => TrackPlayer.skipToNext);
+  TrackPlayer.addEventListener(Event.RemoteNext, () => TrackPlayer.skipToNext());
 
-  TrackPlayer.addEventListener( Event.RemotePrevious, () => TrackPlayer.skipToPrevious);
+  TrackPlayer.addEventListener( Event.RemotePrevious, () => TrackPlayer.skipToPrevious());
+
+  // TrackPlayer.addEventListener(Event.RemoteSeek,()=>TrackPlayer.seekBy())
 }
