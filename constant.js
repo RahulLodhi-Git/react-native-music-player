@@ -1,7 +1,7 @@
 export const trackPlayerList = [
     {
         id: 1,
-        title: 'Bhalwani Gedi | Punjabi',
+        title: '1 Bhalwani Gedi | Punjabi',
         url: require('./src/assets/audio/Bhalwani-Gedi.mp3'),
         artist: 'Jassa Dhillon',
         artwork: 'https://covers.djpunjab.pro/image/496732/Bhalwani-Gedi-1.jpg',
@@ -9,16 +9,16 @@ export const trackPlayerList = [
     },
     {
         id: 2,
-        title: 'Maan Meri Jaan 2',
+        title: '2 Maan Meri Jaan',
         url: require('./src/assets/audio/Adharam-Muharram-Vadanam.mp3'),
-        artist: 'King 2',
+        artist: 'King ',
         artwork:
             'https://c.saavncdn.com/734/Champagne-Talk-Hindi-2022-20221008011951-500x500.jpg',
         album: 'Champagne Talk',
     },
     {
         id: 3,
-        title: 'Bhalwani Gedi | Punjabi',
+        title: '3 Bhalwani Gedi | Punjabi',
         url: require('./src/assets/audio/Bhalwani-Gedi.mp3'),
         artist: 'Jassa Dhillon',
         artwork: 'https://covers.djpunjab.pro/image/496732/Bhalwani-Gedi-1.jpg',
@@ -26,9 +26,9 @@ export const trackPlayerList = [
     },
     {
         id: 4,
-        title: 'Maan Meri Jaan 2',
+        title: '4 Maan Meri Jaan',
         url: require('./src/assets/audio/Adharam-Muharram-Vadanam.mp3'),
-        artist: 'King 2',
+        artist: 'King ',
         artwork:
             'https://c.saavncdn.com/734/Champagne-Talk-Hindi-2022-20221008011951-500x500.jpg',
         album: 'Champagne Talk',
@@ -43,15 +43,32 @@ export const trackPlayerList = [
     },
     {
         id: 6,
-        title: 'Maan Meri Jaan 2',
+        title: '6 Maan Meri Jaan',
         url: require('./src/assets/audio/Adharam-Muharram-Vadanam.mp3'),
-        artist: 'King 2',
+        artist: 'King ',
         artwork:
             'https://c.saavncdn.com/734/Champagne-Talk-Hindi-2022-20221008011951-500x500.jpg',
         album: 'Champagne Talk',
     },
     {
         id: 7,
+        title: '7 Bhalwani Gedi | Punjabi',
+        url: require('./src/assets/audio/Bhalwani-Gedi.mp3'),
+        artist: 'Jassa Dhillon',
+        artwork: 'https://covers.djpunjab.pro/image/496732/Bhalwani-Gedi-1.jpg',
+        album: 'Above All',
+    },
+    {
+        id: 8,
+        title: ' 8 Maan Meri Jaan',
+        url: require('./src/assets/audio/Adharam-Muharram-Vadanam.mp3'),
+        artist: 'King ',
+        artwork:
+            'https://c.saavncdn.com/734/Champagne-Talk-Hindi-2022-20221008011951-500x500.jpg',
+        album: 'Champagne Talk',
+    },
+    {
+        id: 9,
         title: 'Bhalwani Gedi | Punjabi',
         url: require('./src/assets/audio/Bhalwani-Gedi.mp3'),
         artist: 'Jassa Dhillon',
@@ -59,16 +76,16 @@ export const trackPlayerList = [
         album: 'Above All',
     },
     {
-        id: 9,
-        title: 'Maan Meri Jaan 2',
+        id: 10,
+        title: 'Maan Meri Jaan',
         url: require('./src/assets/audio/Adharam-Muharram-Vadanam.mp3'),
-        artist: 'King 2',
+        artist: 'King ',
         artwork:
             'https://c.saavncdn.com/734/Champagne-Talk-Hindi-2022-20221008011951-500x500.jpg',
         album: 'Champagne Talk',
     },
     {
-        id: 10,
+        id: 11,
         title: 'Bhalwani Gedi | Punjabi',
         url: require('./src/assets/audio/Bhalwani-Gedi.mp3'),
         artist: 'Jassa Dhillon',
@@ -77,9 +94,9 @@ export const trackPlayerList = [
     },
     {
         id: 12,
-        title: 'Maan Meri Jaan 2',
+        title: 'Maan Meri Jaan',
         url: require('./src/assets/audio/Adharam-Muharram-Vadanam.mp3'),
-        artist: 'King 2',
+        artist: 'King ',
         artwork:
             'https://c.saavncdn.com/734/Champagne-Talk-Hindi-2022-20221008011951-500x500.jpg',
         album: 'Champagne Talk',
@@ -94,9 +111,9 @@ export const trackPlayerList = [
     },
     {
         id: 14,
-        title: 'Maan Meri Jaan 2',
+        title: 'Maan Meri Jaan',
         url: require('./src/assets/audio/Adharam-Muharram-Vadanam.mp3'),
-        artist: 'King 2',
+        artist: 'King ',
         artwork:
             'https://c.saavncdn.com/734/Champagne-Talk-Hindi-2022-20221008011951-500x500.jpg',
         album: 'Champagne Talk',
@@ -111,26 +128,9 @@ export const trackPlayerList = [
     },
     {
         id: 16,
-        title: 'Maan Meri Jaan 2',
+        title: 'Maan Meri Jaan',
         url: require('./src/assets/audio/Adharam-Muharram-Vadanam.mp3'),
-        artist: 'King 2',
-        artwork:
-            'https://c.saavncdn.com/734/Champagne-Talk-Hindi-2022-20221008011951-500x500.jpg',
-        album: 'Champagne Talk',
-    },
-    {
-        id: 17,
-        title: 'Bhalwani Gedi | Punjabi',
-        url: require('./src/assets/audio/Bhalwani-Gedi.mp3'),
-        artist: 'Jassa Dhillon',
-        artwork: 'https://covers.djpunjab.pro/image/496732/Bhalwani-Gedi-1.jpg',
-        album: 'Above All',
-    },
-    {
-        id: 18,
-        title: 'Maan Meri Jaan 2',
-        url: require('./src/assets/audio/Adharam-Muharram-Vadanam.mp3'),
-        artist: 'King 2',
+        artist: 'King ',
         artwork:
             'https://c.saavncdn.com/734/Champagne-Talk-Hindi-2022-20221008011951-500x500.jpg',
         album: 'Champagne Talk',

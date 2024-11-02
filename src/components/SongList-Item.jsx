@@ -2,26 +2,61 @@ import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {trackPlayerList} from '../../constant';
+import TrackPlayer from 'react-native-track-player';
 
-const SongListItem = ({navigation, activeTrack}) => {
+const SongListItem = ({
+  navigation,
+  activeTrack,
+  handlePlayAndPause,
+  currentTrackPlaybackState,
+  loadTrackAndPlay,
+}) => {
   //   const {navigation} = props;c
-
-  console.log('item', activeTrack);
   const renderListitem = ({item}) => {
+    // console.log(
+    //   'currentTrack',
+    //   activeTrack?.id,
+    //   item?.id,
+    //   currentTrackPlaybackState === 'playing',
+    //   currentTrackPlaybackState === 'playing' && activeTrack?.id === item?.id,
+    // );
     return (
       <View style={[styleCls.item, styleCls.itemActive]}>
         <View style={styleCls.left}>
-          <Text style={styleCls.songTitle}>{item?.title}</Text>
+          <Text style={styleCls.songTitle}>
+            {item?.id} - {item?.title}
+          </Text>
           <Text style={styleCls.default}>
             {item?.artist} | {item?.album}
           </Text>
         </View>
         <View style={styleCls.right}>
-          <Icon style={styleCls} name="play-circle" size={40} color="#949393" />
+          <Pressable
+            onPress={() => {
+              loadTrackAndPlay(item?.id);
+            }}>
+            {currentTrackPlaybackState === 'playing' &&
+            activeTrack?.id === item?.id ? (
+              <Icon
+                style={styleCls.icon}
+                name="pause-circle"
+                size={40}
+                color="#8546f1fb"
+              />
+            ) : (
+              <Icon
+                style={styleCls.icon}
+                name="play-circle"
+                size={40}
+                color="#949393"
+              />
+            )}
+          </Pressable>
         </View>
       </View>
     );
   };
+
   return (
     <View style={styleCls.mainWrap}>
       <View style={styleCls.header}>
@@ -41,19 +76,32 @@ const SongListItem = ({navigation, activeTrack}) => {
             onPress={() => navigation.navigate('PlayerScreen')}
             style={{width: '80%'}}>
             <View style={styleCls.left}>
-              <Text style={styleCls.p_songTitle}>{activeTrack?.title}</Text>
+              <Text style={styleCls.p_songTitle}>
+                {activeTrack?.id} - {activeTrack?.title}
+              </Text>
               <Text style={styleCls.p_default}>
                 {activeTrack?.artist} | {activeTrack?.album}
               </Text>
             </View>
           </Pressable>
           <View style={styleCls.right}>
-            <Icon
-              style={styleCls.icon}
-              name="play-circle"
-              size={40}
-              color="#ffffff"
-            />
+            <Pressable onPress={handlePlayAndPause}>
+              {currentTrackPlaybackState.state === 'playing' ? (
+                <Icon
+                  style={styleCls.icon}
+                  name="pause-circle"
+                  size={40}
+                  color="#ffffff"
+                />
+              ) : (
+                <Icon
+                  style={styleCls.icon}
+                  name="play-circle"
+                  size={40}
+                  color="#ffffff"
+                />
+              )}
+            </Pressable>
           </View>
         </View>
       </View>

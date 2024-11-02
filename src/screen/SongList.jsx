@@ -1,23 +1,28 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import SongListItem from '../components/SongList-Item';
-import TrackPlayer from 'react-native-track-player';
+
+import TrackPlayerContext from '../context/TrackPlayerContext';
 
 const SongList = props => {
-  const [activeTrack, setActiveTrack] = useState(null);
-
-  const getActiveTrack = async () => {
-    let currentLoadTrack = await TrackPlayer.getActiveTrack();
-    setActiveTrack(currentLoadTrack);
-  };
-
-  useEffect(() => {
-    getActiveTrack();
-  }, []);
+  const {
+    currentTrack,
+    handlePlayAndPause,
+    currentTrackPlaybackState,
+    setCurrentTrack,
+    loadTrackAndPlay,
+  } = useContext(TrackPlayerContext);
 
   return (
     <View>
-      <SongListItem navigation={props.navigation} activeTrack={activeTrack} />
+      <SongListItem
+        navigation={props.navigation}
+        activeTrack={currentTrack}
+        handlePlayAndPause={handlePlayAndPause}
+        currentTrackPlaybackState={currentTrackPlaybackState}
+        setCurrentTrack={setCurrentTrack}
+        loadTrackAndPlay={loadTrackAndPlay}
+      />
     </View>
   );
 };

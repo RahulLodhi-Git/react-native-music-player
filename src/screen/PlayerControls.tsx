@@ -1,61 +1,48 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SongSlider from '../../components/SongSlider';
 import TrackPlayer, {
   useTrackPlayerEvents,
   Event,
-  State as TPState,
-  usePlaybackState,
   useProgress,
 } from 'react-native-track-player';
+import TrackPlayerContext from '../context/TrackPlayerContext';
 
 const PlayerControls = () => {
-  const [activeTrack, setActiveTrack] = useState(undefined);
-  const trackPlaybackState = usePlaybackState(); // Hook, to give the current state of active track
   const progress = useProgress();
+
+  const {
+    currentTrack,
+    setCurrentTrack,
+    handlePlayAndPause,
+    currentTrackPlaybackState,
+  } = useContext(TrackPlayerContext);
+
   useTrackPlayerEvents([Event.PlaybackActiveTrackChanged], async event => {
     if (
       event.type === Event.PlaybackActiveTrackChanged &&
       event.track != null
     ) {
-      setActiveTrack(event.track);
+      setCurrentTrack(event.track);
     }
   });
 
-  const getActiveTrack = async () => {
-    let track = await TrackPlayer.getActiveTrack();
-    setActiveTrack(track);
-  };
-
-  useEffect(() => {
-    getActiveTrack();
-  }, []);
-
-  const togglePlayPause = async () => {
-    if (
-      TPState.Ready === trackPlaybackState.state ||
-      TPState.Paused === trackPlaybackState.state
-    ) {
-      await TrackPlayer.play();
-    } else {
-      await TrackPlayer.pause();
-    }
-  };
   const handleNext = async () => {
     await TrackPlayer.skipToNext();
   };
+
   const handlePrevious = async () => {
     await TrackPlayer.skipToPrevious();
   };
-  // console.log('trackPlaybackState.state', trackPlaybackState.state);
+
   return (
     <View style={styleClass.maineWrap}>
       <View style={styleClass.aboveHalf}>
         <Image
           style={styleClass.songCover}
           source={{
-            uri: activeTrack?.artwork,
+            uri: currentTrack?.artwork,
           }}
         />
       </View>
@@ -64,8 +51,8 @@ const PlayerControls = () => {
           <Pressable onPress={handlePrevious}>
             <Icon name="skip-previous" size={50} color="#000" />
           </Pressable>
-          <Pressable style={styleClass.btnPlay} onPress={togglePlayPause}>
-            {trackPlaybackState.state === 'playing' ? (
+          <Pressable style={styleClass.btnPlay} onPress={handlePlayAndPause}>
+            {currentTrackPlaybackState.state === 'playing' ? (
               <Icon name="pause-circle" size={100} color="#7c3aed" />
             ) : (
               <Icon name="play-circle" size={100} color="#7c3aed" />
@@ -77,9 +64,11 @@ const PlayerControls = () => {
         </View>
         <SongSlider progress={progress} />
         <View>
-          <Text style={styleClass.songTitle}>{activeTrack?.title}</Text>
+          <Text style={styleClass.songTitle}>
+            {currentTrack?.title} - {currentTrack?.id}
+          </Text>
           <Text style={styleClass.songInfo}>
-            {activeTrack?.album} | {activeTrack?.artist} | Parmish verma Flims
+            {currentTrack?.album} | {currentTrack?.artist} | Parmish verma Flims
           </Text>
         </View>
       </View>
