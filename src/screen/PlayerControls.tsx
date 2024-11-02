@@ -48,7 +48,7 @@ const PlayerControls = () => {
   const handlePrevious = async () => {
     await TrackPlayer.skipToPrevious();
   };
-  console.log('trackPlaybackState.state', trackPlaybackState.state);
+  // console.log('trackPlaybackState.state', trackPlaybackState.state);
   return (
     <View style={styleClass.maineWrap}>
       <View style={styleClass.aboveHalf}>
