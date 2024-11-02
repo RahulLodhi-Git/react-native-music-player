@@ -14,9 +14,13 @@ import {
   initializedThePlayer,
 } from './musicPlaybackService';
 import TrackPlayer from 'react-native-track-player';
+// navigation
+import ScreenRoutes from './routes';
+import {TrackPlayerContextProvider} from './context/TrackPlayerContext';
 
 const App = () => {
   const [isPlayerReady, setIsPlayerReady] = useState(false);
+
   const setUpPlayer = async () => {
     let isPlayerReady = await initializedThePlayer();
     if (isPlayerReady) {
@@ -41,7 +45,9 @@ const App = () => {
   return (
     <SafeAreaView style={{backgroundColor: '#f5f3ff', flex: 1}}>
       <StatusBar barStyle="dark-content" backgroundColor="red" />
-      <PlayerControls />
+      <TrackPlayerContextProvider>
+        <ScreenRoutes />
+      </TrackPlayerContextProvider>
     </SafeAreaView>
   );
 };
