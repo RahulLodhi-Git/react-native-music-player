@@ -19,6 +19,7 @@ import ScreenRoutes from './routes';
 
 const App = () => {
   const [isPlayerReady, setIsPlayerReady] = useState(false);
+
   const setUpPlayer = async () => {
     let isPlayerReady = await initializedThePlayer();
     if (isPlayerReady) {

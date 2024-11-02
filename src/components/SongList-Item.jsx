@@ -1,65 +1,50 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {trackPlayerList} from '../../constant';
 
-const SongListItem = ({navigation}) => {
-  //   const {navigation} = props;
+const SongListItem = ({navigation, activeTrack}) => {
+  //   const {navigation} = props;c
+
+  console.log('item', activeTrack);
+  const renderListitem = ({item}) => {
+    return (
+      <View style={[styleCls.item, styleCls.itemActive]}>
+        <View style={styleCls.left}>
+          <Text style={styleCls.songTitle}>{item?.title}</Text>
+          <Text style={styleCls.default}>
+            {item?.artist} | {item?.album}
+          </Text>
+        </View>
+        <View style={styleCls.right}>
+          <Icon style={styleCls} name="play-circle" size={40} color="#949393" />
+        </View>
+      </View>
+    );
+  };
   return (
     <View style={styleCls.mainWrap}>
       <View style={styleCls.header}>
         <Text style={styleCls.headerText}>All Song</Text>
       </View>
       <View style={styleCls.itemWrap}>
-        <View style={[styleCls.item, styleCls.itemActive]}>
-          <View style={styleCls.left}>
-            <Text style={styleCls.songTitle}>SongName</Text>
-            <Text style={styleCls.default}>Artist | Album|</Text>
-          </View>
-          <View style={styleCls.right}>
-            <Icon
-              style={styleCls.iconActive}
-              name="play-circle"
-              size={40}
-              color="#949393"
-            />
-          </View>
-        </View>
-        <View style={styleCls.item}>
-          <View style={styleCls.left}>
-            <Text style={styleCls.songTitle}>SongName</Text>
-            <Text style={styleCls.default}>Artist | Album|</Text>
-          </View>
-          <View style={styleCls.right}>
-            <Icon
-              style={styleCls.icon}
-              name="play-circle"
-              size={40}
-              color="#949393"
-            />
-          </View>
-        </View>
-        <View style={styleCls.item}>
-          <View style={styleCls.left}>
-            <Text style={styleCls.songTitle}>SongName</Text>
-            <Text style={styleCls.default}>Artist | Album|</Text>
-          </View>
-          <View style={styleCls.right}>
-            <Icon
-              style={styleCls.icon}
-              name="play-circle"
-              size={40}
-              color="#949393"
-            />
-          </View>
-        </View>
+        <FlatList
+          data={trackPlayerList}
+          keyExtractor={item => item.id}
+          renderItem={renderListitem}
+        />
       </View>
 
       <View style={styleCls.playerTiles}>
         <View style={styleCls.item}>
-          <Pressable onPress={() => navigation.navigate('PlayerScreen')}>
+          <Pressable
+            onPress={() => navigation.navigate('PlayerScreen')}
+            style={{width: '80%'}}>
             <View style={styleCls.left}>
-              <Text style={styleCls.p_songTitle}>SongName</Text>
-              <Text style={styleCls.p_default}>Artist | Album|</Text>
+              <Text style={styleCls.p_songTitle}>{activeTrack?.title}</Text>
+              <Text style={styleCls.p_default}>
+                {activeTrack?.artist} | {activeTrack?.album}
+              </Text>
             </View>
           </Pressable>
           <View style={styleCls.right}>
@@ -91,8 +76,9 @@ const styleCls = StyleSheet.create({
     paddingTop: '50',
     paddingHorizontal: 15,
     paddingVertical: 30,
-    height: '100%',
+    height: '90%',
     zIndex: 1,
+    paddingBottom: 80,
   },
   item: {
     flexDirection: 'row',
@@ -112,8 +98,8 @@ const styleCls = StyleSheet.create({
     // shadowRadius: 15,
     // shadowOffset: {width: 1, height: 13},
   },
-  left: {borderWidth: 3},
-  right: {},
+  left: {width: '80%'},
+  right: {width: 'auto'},
   header: {},
   headerText: {
     fontSize: 25,

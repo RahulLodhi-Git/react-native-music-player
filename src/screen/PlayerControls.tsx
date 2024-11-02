@@ -25,9 +25,9 @@ const PlayerControls = () => {
 
   const getActiveTrack = async () => {
     let track = await TrackPlayer.getActiveTrack();
-    let trackIndex = await TrackPlayer.getActiveTrackIndex();
     setActiveTrack(track);
   };
+
   useEffect(() => {
     getActiveTrack();
   }, []);
