@@ -7,16 +7,16 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import PlayerControls from './screen/PlayerControls';
+
 import {
   addingTracksIntoPlayer,
   initializedThePlayer,
 } from './musicPlaybackService';
-import TrackPlayer from 'react-native-track-player';
+
 // navigation
 import ScreenRoutes from './routes';
 import {TrackPlayerContextProvider} from './context/TrackPlayerContext';
+import {trackPlayerList} from '../constant';
 
 const App = () => {
   const [isPlayerReady, setIsPlayerReady] = useState(false);
@@ -24,7 +24,7 @@ const App = () => {
   const setUpPlayer = async () => {
     let isPlayerReady = await initializedThePlayer();
     if (isPlayerReady) {
-      await addingTracksIntoPlayer();
+      await addingTracksIntoPlayer(trackPlayerList[0]);
       setIsPlayerReady(isPlayerReady);
     }
   };
