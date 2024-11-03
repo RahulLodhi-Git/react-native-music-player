@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SongSlider from '../../components/SongSlider';
@@ -8,6 +8,8 @@ import TrackPlayer, {
   useProgress,
 } from 'react-native-track-player';
 import TrackPlayerContext from '../context/TrackPlayerContext';
+import {addingTracksIntoPlayer} from '../musicPlaybackService';
+import {trackPlayerList} from '../../constant';
 
 const PlayerControls = () => {
   const progress = useProgress();
@@ -35,6 +37,13 @@ const PlayerControls = () => {
   const handlePrevious = async () => {
     await TrackPlayer.skipToPrevious();
   };
+
+  const addingAllSongsInQueue = async () => {
+    await addingTracksIntoPlayer(trackPlayerList);
+  };
+  useEffect(() => {
+    addingAllSongsInQueue();
+  }, []);
 
   return (
     <View style={styleClass.maineWrap}>

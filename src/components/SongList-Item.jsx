@@ -13,13 +13,6 @@ const SongListItem = ({
 }) => {
   //   const {navigation} = props;c
   const renderListitem = ({item}) => {
-    // console.log(
-    //   'currentTrack',
-    //   activeTrack?.id,
-    //   item?.id,
-    //   currentTrackPlaybackState === 'playing',
-    //   currentTrackPlaybackState === 'playing' && activeTrack?.id === item?.id,
-    // );
     return (
       <View style={[styleCls.item, styleCls.itemActive]}>
         <View style={styleCls.left}>
@@ -33,9 +26,9 @@ const SongListItem = ({
         <View style={styleCls.right}>
           <Pressable
             onPress={() => {
-              loadTrackAndPlay(item?.id);
+              loadTrackAndPlay(item?.id, item);
             }}>
-            {currentTrackPlaybackState === 'playing' &&
+            {currentTrackPlaybackState.state === 'playing' &&
             activeTrack?.id === item?.id ? (
               <Icon
                 style={styleCls.icon}
@@ -112,17 +105,15 @@ const SongListItem = ({
 export default SongListItem;
 
 const styleCls = StyleSheet.create({
-  songTitle: {fontSize: 18, fontWeight: '500'},
-  default: {color: '#666666'},
+  songTitle: {fontSize: 16, fontWeight: '500'},
+  default: {color: '#666666', fontSize: 14},
   mainWrap: {position: 'relative', height: '100%'},
   itemWrap: {
     marginTop: 30,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     backgroundColor: '#ffffff',
-    // backgroundColor: '#b0a4ee',
     paddingTop: '50',
-    paddingHorizontal: 15,
     paddingVertical: 30,
     height: '90%',
     zIndex: 1,
@@ -139,6 +130,7 @@ const styleCls = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 15,
     borderRadius: 30,
+    marginHorizontal: 15,
     // backgroundColor: '#FFFFFF',
     // shadowColor: 'rgba(0, 0, 0, 0.438)',
     // shadowOpacity: 0.8,
@@ -198,10 +190,11 @@ const styleCls = StyleSheet.create({
   p_default: {
     color: '#fff',
     fontWeight: '600',
+    fontSize: 14,
   },
   p_songTitle: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '600',
   },
 });

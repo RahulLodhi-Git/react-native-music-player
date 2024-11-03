@@ -1,17 +1,21 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { createContext, useEffect, useState } from 'react';
 import TrackPlayer, {
+    Event,
     State as TPState,
     usePlaybackState,
+    useTrackPlayerEvents,
 } from 'react-native-track-player';
 import { getQueue } from 'react-native-track-player/lib/src/trackPlayer';
 import { trackPlayerList } from '../../constant';
+import { addingTracksIntoPlayer } from '../musicPlaybackService';
 
 const TrackPlayerContext = createContext({});
 
 const TrackPlayerContextProvider = ({ children }) => {
     const currentTrackPlaybackState = usePlaybackState();
     const [currentTrack, setCurrentTrack] = useState(null);
+
 
     const getActiveTrack = async () => {
         let track = await TrackPlayer.getActiveTrack();
@@ -28,19 +32,16 @@ const TrackPlayerContextProvider = ({ children }) => {
             await TrackPlayer.pause();
         }
     };
-    const loadTrackAndPlay = async (trackId) => {
-        console.log('trackId,', (trackId - 1) !== 0);
-        let track = {};
-        if ((trackId - 1) !== 0) {
-            track = await TrackPlayer.getTrack(trackId - 1);
-            await TrackPlayer.load(track);
-        } else {
-            track = await TrackPlayer.getTrack(0);
-            await TrackPlayer.load(track);
-        }
-        await TrackPlayer.play();
+
+    const loadTrackAndPlay = async (trackId, item) => {
+        await TrackPlayer.reset()
+        await addingTracksIntoPlayer(item);
+        let track = await TrackPlayer.getActiveTrack();
+        await TrackPlayer.load(track);
         setCurrentTrack(track);
-    }
+        await TrackPlayer.play();
+    };
+
     const defaultValues = {
         currentTrack,
         getActiveTrack,

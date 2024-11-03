@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import TrackPlayer, { Event, RepeatMode } from 'react-native-track-player';
-import { trackPlayerList } from '../constant';
 
 export async function initializedThePlayer() {
   let isSetUp = false;
@@ -14,7 +14,7 @@ export async function initializedThePlayer() {
   }
 }
 
-export async function addingTracksIntoPlayer() {
+export async function addingTracksIntoPlayer(trackPlayerList?:any) {
   await TrackPlayer.add(trackPlayerList);
   await TrackPlayer.setRepeatMode(RepeatMode.Queue);
 }
